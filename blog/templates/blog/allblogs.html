@@ -1,9 +1,8 @@
 
 <!doctype html>
 <html lang="en">
-  {% load static %}
+  {%load static%}
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -21,7 +20,7 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'home'%}">Akshat Karodiya</a>
+      <a class="navbar-brand" href="{% url 'home' %}">Akshat Karodiya</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,7 +28,7 @@
         <div class="navbar-nav ml-auto">
           <a class="nav-item nav-link " href="#">Twitter</a>
           <a class="nav-item nav-link" href="{% static 'resume.pdf' %}">Resume</a>
-          <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
+          <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Blog</a>
 
         </div>
       </div>
@@ -37,39 +36,25 @@
   </header>
 
   <main role="main">
+  <div class="container">
+    <h1 class="text-center pt-3">Welcome to Akshat's Blog</h1>
+    <br>
+    <br>
+    <h2>Latest Post</h2>
+    <hr>
 
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1>Hi, I'm Akshat</h1>
-        <p class="lead text-muted">Hey, my name is akshat i am currently working on django website</p>
-        <p>
-          <a href="mailto:akshatkarodiya@gmail.com" class="btn btn-primary my-2">Email Me</a>
+  {% for blog in blogs.all %}
+  <a href="{% url 'details' blog.id %}">  <h3>{{blog.title}}</h3> </a>
+    <br>
+    {{blog.pub_date_pretty}}
+    <br>
+    <img class="img-fluid" src="{{ blog.image.url }}" height="200" width="200" />
+    <br>
 
-        </p>
-        <img src="{% static 'Dadi.jpg' %}" height="300" width="300">
-      </div>
-    </section>
-
-    <div class="album py-5 bg-light">
-      <div class="container">
-
-        <div class="row">
-          {% for job in jobs.all %}
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img class = "card-img-top" src="{{ job.image.url }}"/>
-              <div class="card-body">
-                <p class="card-text">{{ job.summary }}</p>
-
-              </div>
-            </div>
-          </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
-
+    {{blog.summary}}
+    <br><hr>
+{% endfor %}
+</div>
   </main>
 
   <footer class="text-muted">
